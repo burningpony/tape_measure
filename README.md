@@ -1,6 +1,7 @@
 # TapeMeasure
 
 [![Code Climate](https://codeclimate.com/github/burningpony/tape_measure.png)](https://codeclimate.com/github/burningpony/tape_measure)
+[![Build Status](https://travis-ci.org/burningpony/tape_measure.svg?branch=master)](https://travis-ci.org/burningpony/tape_measure)
 
 Contains a text parser for converting various measurements into floating point numbers, as well as doing multiplication with those numbers:
 
