@@ -12,7 +12,8 @@ Also contains a to_mixed number function that converts inches to all of it's cor
 
 .to_mixed_number('12') = ['1ft', '12in', '#m', etc]
 
-## Installation
+## Installation: NOT CURRENTLY PUBLISHED
+
 
 Add this line to your application's Gemfile:
 
