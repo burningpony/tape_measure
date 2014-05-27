@@ -15,8 +15,8 @@ grammar LengthGrammar
   end
 
   rule number_group
-    (mixed_number space+ term){
-      capture(:mixed_number).value + capture(:term).value
+    (space* mixed_number space* term space*){
+      capture(:mixed_number).value.send("+@", capture(:term).value)
     }
   end
 
@@ -69,11 +69,11 @@ grammar LengthGrammar
   end
 
   rule number
-    (digits space*) { capture(:digits).to_str.to_i }
+    (digits space*) { capture(:digits).to_str.to_f }
   end
 
   rule formatted_number
-    feet | inches | cm | mm
+    feet | inches | cm | mm | meter
   end
 
   rule inches
@@ -90,13 +90,19 @@ grammar LengthGrammar
 
   rule mm
     (number mm_identifier space*){
-      capture(:number).value * 0.0393701
+      (capture(:number).value.to_r * (3/64)).rationalize
     }
   end
 
   rule cm
     (number cm_identifier space*){
-      capture(:number).value * 0.393701
+      (capture(:number).value.to_r * (25/64)).rationalize
+    }
+  end
+
+  rule meter
+    (number meter_identifier space*){
+      (capture(:number).value.to_r * (39 + (3/8))).rationalize
     }
   end
 
@@ -114,6 +120,10 @@ grammar LengthGrammar
 
   rule inch_identifier 
     '\"' | 'inches' | 'in'
+  end
+
+  rule meter_identifier
+    'meter' | 'meters' | 'm'
   end
 
   rule digits

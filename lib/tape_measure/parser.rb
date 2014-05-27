@@ -13,7 +13,7 @@ module TapeMeasure
     def parse
       Citrus.load 'lib/tape_measure/length_grammar'
       begin
-        @parsed = LengthGrammer.parse(string).value
+        @parsed = LengthGrammar.parse(@string).value
       rescue => ex
         ex.message
       end
