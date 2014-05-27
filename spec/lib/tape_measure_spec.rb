@@ -1,4 +1,5 @@
 require 'spec_helper'
+
 describe TapeMeasure do
   # 6 inches
   # 6in * 4ft
@@ -22,7 +23,7 @@ describe TapeMeasure do
   # 3-3/4"
   describe :grammar do
     it 'can add' do
-      TapeMeasure.formatter.new(1)
+      TapeMeasure::Formater.new(1)
     end
 
   #   it 'can subtract' do
