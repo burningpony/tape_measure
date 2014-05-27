@@ -65,7 +65,7 @@ grammar LengthGrammar
   end
 
   rule number
-    integer | float | rational
+    float | rational | integer
   end
 
   rule float
@@ -98,19 +98,19 @@ grammar LengthGrammar
 
   rule mm
     (number mm_identifier space*){
-      (capture(:number).value.to_r * (3/64)).rationalize
+      (capture(:number).value * 0.0393701).round(4)
     }
   end
 
   rule cm
     (number cm_identifier space*){
-      (capture(:number).value.to_r * (25/64)).rationalize
+      (capture(:number).value * 0.393701).round(4)
     }
   end
 
   rule meter
     (number meter_identifier space*){
-      (capture(:number).value.to_r * (39 + (3/8))).rationalize
+      (capture(:number).value * 39.3701).round(4)
     }
   end
 
