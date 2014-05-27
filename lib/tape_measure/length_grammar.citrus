@@ -1,0 +1,120 @@
+grammar LengthGrammar
+
+  rule term
+    additive |  factor
+  end
+
+  rule additive
+    (factor operator:('+' | '-') space* term) {
+      capture(:factor).value.send(capture(:operator).to_s, capture(:term).value)
+    }
+  end
+
+  rule factor
+    multiplicative | prefix
+  end
+
+  rule multiplicative
+    (prefix operator:('*' | '/' | '%') space* factor) {
+      capture(:prefix).value.send(capture(:operator).to_s, capture(:factor).value)
+    }
+  end
+
+  rule prefix
+    prefixed | exponent
+  end
+
+  rule prefixed
+    (operator:('-' | '+' | '~') space* prefix) {
+      s = capture(:operator).to_s
+      s += '@' unless s == '~' # Unary + and - require an @.
+      capture(:prefix).value.send(s)
+    }
+  end
+
+  rule exponent
+    exponential | primary
+  end
+
+  rule exponential
+    (primary operator:'**' space* prefix) {
+      capture(:primary).value.send(capture(:operator).to_s, capture(:prefix).value)
+    }
+  end
+
+  rule primary
+    group | mixed_number
+  end
+
+  rule group
+    (lparen term rparen) {
+      capture(:term).value
+    }
+  end
+
+  ## Lexical syntax
+
+  rule mixed_number
+    float | formatted_number | number
+  end
+
+  rule float
+    (digits '.' digits space*) { to_str.to_f }
+  end
+
+  rule number
+    (digits space*) { capture(:digits).to_str.to_i }
+  end
+
+  rule formatted_number
+    feet | inches | cm | mm
+  end
+
+  rule inches
+    (number inch_identifier space*){
+      capture(:number).value
+    }
+  end
+
+  rule feet
+    (number foot_identifier space*) {
+      capture(:number).value * 12
+    }
+  end
+
+  rule mm
+    (number mm_identifier space*){
+      capture(:number).value * 0.0393701
+    }
+  end
+
+  rule cm
+    (number cm_identifier space*){
+      capture(:number).value * 0.393701
+    }
+  end
+
+  rule cm_identifier
+    'cm' | 'centimeters' | 'centimetres'
+  end
+
+  rule mm_identifier
+    'mm' | 'millimeters' | 'millimetres'
+  end
+
+  rule foot_identifier 
+    '\'' | 'feet' | 'ft'
+  end
+
+  rule inch_identifier 
+    '\"' | 'inches' | 'in'
+  end
+
+  rule digits
+    [0-9]+ ('_' [0-9]+)* # mixed_numbers may contain underscores.
+  end
+
+  rule lparen '(' space* end
+  rule rparen ')' space* end
+  rule space  [ \t\n\r]  end
+end
