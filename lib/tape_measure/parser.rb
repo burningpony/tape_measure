@@ -1,9 +1,8 @@
 module TapeMeasure
   # Format numbers in mixed numbers
-  
+
   class Parser
     def initialize(string)
-
       Citrus.load 'lib/tape_measure/length_grammar'
 
       @string  = string
@@ -12,7 +11,6 @@ module TapeMeasure
 
       parse
       output
-
     end
 
     def parse
@@ -20,13 +18,11 @@ module TapeMeasure
     end
 
     def output
-      begin
-        output = @parsed.value
-      rescue
-        output = output.error
-      ensure
-        output
-      end
+      output = @parsed.value
+    rescue
+      output = output.error
+    ensure
+      output
     end
   end
 end
