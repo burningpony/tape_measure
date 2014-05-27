@@ -5,7 +5,7 @@ grammar LengthGrammar
   end
 
   rule number_set
-    (space* mixed_number space* term){
+    (mixed_number space* term){
       capture(:mixed_number).value + capture(:term).value
     }
   end
@@ -65,15 +65,23 @@ grammar LengthGrammar
   ## Lexical syntax
 
   rule mixed_number
-    formatted_number | number 
+    formatted_number | number
   end
 
   rule number
-    float | rational | integer
+    irrational | integer
+  end
+
+  rule irrational
+    rational | float 
   end
 
   rule float
-    (digits '.' digits space*) { to_str.to_f }
+    decimal | integer
+  end
+
+  rule decimal
+    (digits '.' integer) { to_str.to_f }
   end
 
   rule integer
@@ -81,7 +89,7 @@ grammar LengthGrammar
   end
 
   rule rational
-    (digits '/' digits space*) { to_str.to_r }
+    (float '/' float) { to_str.to_r }
   end
 
   rule formatted_number
@@ -127,11 +135,11 @@ grammar LengthGrammar
   end
 
   rule foot_identifier 
-    '\'' | 'feet' | 'ft'
+    '\'' | 'feet' | 'ft' | "'" | "\'"
   end
 
   rule inch_identifier 
-    '\"' | 'inches' | 'in'
+    '\"' | 'inches' | 'in' | '"' | '\"'
   end
 
   rule meter_identifier
