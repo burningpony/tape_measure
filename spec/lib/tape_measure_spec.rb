@@ -23,7 +23,7 @@ describe TapeMeasure do
   # 3-3/4"
   describe :grammar do
     it 'can add' do
-      TapeMeasure::Formater.new(1)
+      TapeMeasure::Formatter.new(1)
     end
 
   #   it 'can subtract' do
