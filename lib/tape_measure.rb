@@ -1,6 +1,5 @@
-require 'tape_measure/formatter'
+require 'tape_measure/formater'
+require 'tape_measure/parser'
 require 'tape_measure/version'
+require 'tape_measure'
 require 'bigdecimal'
-
-module TapeMeasure
-end
