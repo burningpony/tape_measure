@@ -1,7 +1,7 @@
 grammar LengthGrammar
 
   rule term
-    additive |  factor
+    additive |  factor | number_group
   end
 
   rule additive
@@ -12,6 +12,12 @@ grammar LengthGrammar
 
   rule factor
     multiplicative | prefix
+  end
+
+  rule number_group
+    (mixed_number space+ term){
+      capture(:mixed_number).value + capture(:term).value
+    }
   end
 
   rule multiplicative
