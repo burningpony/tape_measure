@@ -1,5 +1,6 @@
 require 'spec_helper'
-
+require 'citrus'
+Citrus.load 'lib/tape_measure/length_grammar'
 describe TapeMeasure do
   # 6 inches
   # 6in * 4ft
@@ -61,31 +62,31 @@ describe TapeMeasure do
 
   describe :to_mixed_number do
     it 'returns a mixed number' do
-      LengthConverter.to_mixed_number(74.3333).should eq("6' 2-1/3\"")
+      TapeMeasure.to_mixed_number(74.3333).should eq("6' 2-1/3\"")
     end
 
     it 'only displays feet if divisible by 12' do
-      LengthConverter.to_mixed_number(72).should eq("6'")
+      TapeMeasure.to_mixed_number(72).should eq("6'")
     end
 
     it 'only displays feet and inches if divisible by 1' do
-      LengthConverter.to_mixed_number(74).should eq("6' 2\"")
+      TapeMeasure.to_mixed_number(74).should eq("6' 2\"")
     end
 
     it 'only displays inches if divisible by 1 ' do
-      LengthConverter.to_mixed_number(1).should eq("1\"")
+      TapeMeasure.to_mixed_number(1).should eq("1\"")
     end
 
     it 'only displays fractions' do
-      LengthConverter.to_mixed_number(0.3333).should eq("1/3\"")
+      TapeMeasure.to_mixed_number(0.3333).should eq("1/3\"")
     end
 
     it 'only displays if line is 0' do
-      LengthConverter.to_mixed_number(BigDecimal 0).should eq(0.0)
+      TapeMeasure.to_mixed_number(BigDecimal 0).should eq(0.0)
     end
 
     it 'it returns null if a blank string is given' do
-      LengthConverter.to_mixed_number('').should eq(nil)
+      TapeMeasure.to_mixed_number('').should eq(nil)
     end
   end
 
@@ -96,7 +97,7 @@ describe TapeMeasure do
 
     #no longer acceptable
     # it 'number + hyphen + rational unit' do
-    #   LengthConverter.convert("3-3/4\"").should eq(35'))
+    #   TapeMeasure.convert("3-3/4\"").should eq(35'))
     # end
 
     it 'number + string unit to inches' do
@@ -168,10 +169,10 @@ describe TapeMeasure do
       expect(LengthGrammar.parse('5.5 / 11').value).to eq(0.5)
     end
     it 'with length style input' do
-      # expect(LengthConverter.convert('15.5\' + 12.7')).to eq(198.7)
+      # expect(TapeMeasure.convert('15.5\' + 12.7')).to eq(198.7)
       expect(LengthGrammar.parse('7 1/3 inches - 4.12mm').value.to_f).to eq(7.17112861)
-      # expect(LengthConverter.convert('4.5 * 3')).to eq(13.5)
-      # expect(LengthConverter.convert('5.5 / 11')).to eq(0.5)
+      # expect(TapeMeasure.convert('4.5 * 3')).to eq(13.5)
+      # expect(TapeMeasure.convert('5.5 / 11')).to eq(0.5)
     end
   end
 

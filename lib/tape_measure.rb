@@ -1,12 +1,11 @@
 require "tape_measure/version"
+require 'bigdecimal'
 
 module TapeMeasure
   #LengthConverter
   #handles conversions and parsing of various lengths of lumber
-  require 'bigdecimal'
-  Citrus.load 'lib/tape_measure/length_grammar'
+  
   class << self
-
     def convert(string)
       convert_unit(string)
     end
