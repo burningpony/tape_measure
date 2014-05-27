@@ -4,8 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'tape_measure/version'
 
 Gem::Specification.new do |spec|
-  spec.add_development_dependency 'rspec'
-  spec.add_dependency 'citrus'
+
   spec.name          = 'tape_measure'
   spec.version       = TapeMeasure::VERSION
   spec.authors       = ['Sam Congleton']
@@ -19,7 +18,8 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
-
   spec.add_development_dependency 'bundler', '~> 1.6'
   spec.add_development_dependency 'rake'
+  spec.add_development_dependency 'rspec'
+  spec.add_dependency 'citrus'
 end
