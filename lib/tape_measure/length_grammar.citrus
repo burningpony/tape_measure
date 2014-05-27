@@ -61,15 +61,23 @@ grammar LengthGrammar
   ## Lexical syntax
 
   rule mixed_number
-    float | formatted_number | number
+    formatted_number | number 
+  end
+
+  rule number
+    integer | float | rational
   end
 
   rule float
     (digits '.' digits space*) { to_str.to_f }
   end
 
-  rule number
-    (digits space*) { capture(:digits).to_str.to_f }
+  rule integer
+    (digits space*) { capture(:digits).to_str.to_i }
+  end
+
+  rule rational
+    (digits '/' digits space*) { to_str.to_r }
   end
 
   rule formatted_number
