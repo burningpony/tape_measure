@@ -4,8 +4,7 @@ module TapeMeasure
   #LengthConverter
   #handles conversions and parsing of various lengths of lumber
   require 'bigdecimal'
-  Citrus.load 'lib/length_conversion/length_grammar'
-  
+  Citrus.load 'lib/tape_measure/length_grammar'
   class << self
 
     def convert(string)

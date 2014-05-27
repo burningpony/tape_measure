@@ -4,14 +4,15 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'tape_measure/version'
 
 Gem::Specification.new do |spec|
-  s.add_development_dependency "rspec" 
+  spec.add_development_dependency "rspec" 
+  spec.add_dependency "citrus" 
   spec.name          = "tape_measure"
   spec.version       = TapeMeasure::VERSION
   spec.authors       = ["Sam Congleton"]
   spec.email         = ["sam@burningpony.com"]
   spec.summary       = %q{Measurements parser and converter.}
   spec.description   = %q{Contains a text parser for converting various measurements into floating point numbers, as well as doing several mathematical functions with those numbers}
-  spec.homepage      = "burningpony.com"
+  spec.homepage      = "http://burningpony.com"
   spec.license       = "GNU v3"
 
   spec.files         = `git ls-files -z`.split("\x0")
