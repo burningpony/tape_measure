@@ -1,9 +1,8 @@
 module TapeMeasure
   # Format numbers in mixed numbers
   class Formatter
-    def initialize(number)
-      @number  = number || 0.0
-      return nil if @number.blank?
+    def initialize(number = 0.0)
+      @number  = number
       return 0.0 if @number == 0.0
 
       parse
