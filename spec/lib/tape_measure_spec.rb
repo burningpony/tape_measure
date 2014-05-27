@@ -23,7 +23,7 @@ describe TapeMeasure do
   # 3-3/4"
   describe :grammar do
     it 'can add' do
-      TapeMeasure::Formatter.new(1)
+      TapeMeasure::Parser.new('(8*2)').parse.should eq 16
     end
 
   #   it 'can subtract' do
