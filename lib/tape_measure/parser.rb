@@ -18,11 +18,13 @@ module TapeMeasure
     end
 
     def output
-      output = @parsed.value
-    rescue
-      output = output.error
-    ensure
-      output
+      begin
+        output = @parsed.value
+      rescue
+        output = output.message
+      ensure
+        output
+      end
     end
   end
 end
