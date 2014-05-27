@@ -1,5 +1,7 @@
 # TapeMeasure
 
+[![Code Climate](https://codeclimate.com/github/burningpony/tape_measure.png)](https://codeclimate.com/github/burningpony/tape_measure)
+
 Contains a text parser for converting various measurements into floating point numbers, as well as doing multiplication with those numbers:
 
 LengthGrammer.parse('6ft') = 72
