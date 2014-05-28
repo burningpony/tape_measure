@@ -148,4 +148,7 @@ describe TapeMeasure do
       # expect(TapeMeasure.convert('5.5 / 11')).to eq(0.5)
     end
   end
+    it 'when called via class method helper' do
+    expect(TapeMeasure.parse("1\"")).to eq(1)
+  end
 end
