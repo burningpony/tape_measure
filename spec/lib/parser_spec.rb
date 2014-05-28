@@ -138,8 +138,10 @@ describe TapeMeasure do
       TapeMeasure::Parser.new('5').parse.should eq 5
     end
 
-    it 'handles no units' do
+    #expected to hand parens in this way
+    it 'handles paren parsing as predicted' do
       TapeMeasure::Parser.new('(5) 5').parse.should eq 10
+      TapeMeasure::Parser.new('(5)(5)(5)').parse.should eq 15
     end
 
     it 'handles no units' do
