@@ -1,6 +1,6 @@
 require 'citrus'
 require 'ruby_units/namespaced'
-Citrus.load 'lib/tape_measure/length_grammar'
+Citrus.load File.expand_path("../length_grammar", __FILE__)
 
 module TapeMeasure
   # Parse Strings into units and math them
