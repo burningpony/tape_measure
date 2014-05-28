@@ -94,7 +94,7 @@ grammar LengthGrammar
 
   rule digits_with_unit
     (number unit space*){
-      (RubyUnits::Unit.new( capture(:number).value.to_s.strip + ( capture(:unit).value.empty? ? "in" : capture(:unit).value)) >> "in").scalar
+      (RubyUnits::Unit.new( capture(:number).value.to_s.strip + ( capture(:unit).value.empty? ? "in" : capture(:unit).value)) >> "in").scalar.to_f.round(4)
     }
   end
 
