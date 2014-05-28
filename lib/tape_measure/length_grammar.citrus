@@ -99,7 +99,7 @@ grammar LengthGrammar
   end
 
   rule fraction
-    (float '/' float) { to_str.to_r) }
+    (float '/' float) { to_str.to_r }
   end
 
   rule digits_with_unit
