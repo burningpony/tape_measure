@@ -81,7 +81,7 @@ grammar LengthGrammar
   end
 
   rule decimal
-    (digits '.' integer) { to_str.to_f }
+    (integer '.' integer) { to_str.to_f }
   end
 
   rule integer
@@ -89,7 +89,17 @@ grammar LengthGrammar
   end
 
   rule rational
-    (float '/' float) { to_str.to_r }
+    leading_whole | fraction
+  end
+
+  rule leading_whole
+    (integer fraction){
+      capture(:integer).value + capture(:fraction).value
+    }
+  end
+
+  rule fraction
+    (float '/' float) { to_str.to_r) }
   end
 
   rule digits_with_unit
