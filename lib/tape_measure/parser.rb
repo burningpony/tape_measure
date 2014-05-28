@@ -3,7 +3,7 @@ require 'ruby_units/namespaced'
 Citrus.load 'lib/tape_measure/length_grammar'
 
 module TapeMeasure
-  # Format numbers in mixed numbers
+  # Parse Strings into units and math them
   class Parser
     def initialize(string)
       @string  = string
