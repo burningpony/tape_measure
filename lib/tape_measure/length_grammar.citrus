@@ -1,16 +1,6 @@
 grammar LengthGrammar
 
   rule term
-    number_set | arithmetic
-  end
-
-  rule number_set
-    (primary space* term){
-      capture(:primary).value + capture(:term).value
-    }
-  end
-
-  rule arithmetic
     additive | factor
   end
 
@@ -31,7 +21,7 @@ grammar LengthGrammar
   end
 
   rule prefix
-    prefixed | exponent
+    prefixed | number_group
   end
 
   rule prefixed
@@ -39,6 +29,16 @@ grammar LengthGrammar
       s = capture(:operator).to_s
       s += '@' unless s == '~' # Unary + and - require an @.
       capture(:prefix).value.send(s)
+    }
+  end 
+
+  rule number_group
+    number_set | exponent
+  end
+
+  rule number_set
+    (primary space* term){
+      capture(:primary).value + capture(:term).value
     }
   end
 
