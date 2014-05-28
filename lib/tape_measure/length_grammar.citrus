@@ -89,7 +89,7 @@ grammar LengthGrammar
   end
 
   rule rational
-    (float '/' float) { BigDecimal(to_str.to_r, 8) }
+    (float '/' float) { to_str.to_r }
   end
 
   rule digit_with_unit
