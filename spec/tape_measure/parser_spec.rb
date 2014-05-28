@@ -165,6 +165,10 @@ describe TapeMeasure do
         .to eq(7.1711)
       expect(TapeMeasure::Parser.new('4.5 * 3').parse).to eq(13.5)
       expect(TapeMeasure::Parser.new('5.5 / 11').parse).to eq(0.5)
+      expect(TapeMeasure::Parser.new('1 ft * 1 inch').parse).to eq(12)
+      expect(TapeMeasure::Parser.new('(3 ft 1/4") * 3 1/2 inch').parse).to eq(126.875)
+      expect(TapeMeasure::Parser.new('(3 ft 1/4") * 3 1/2 inch * 4/4" ').parse).to eq(126.875)
+      expect(TapeMeasure::Parser.new('(3 ft 1/4") * 3 1/2 inch * 3/4" ').parse).to eq(95.15625)
     end
   end
   it 'when called via class method helper' do
