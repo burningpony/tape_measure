@@ -109,11 +109,13 @@ describe TapeMeasure do
     end
 
     it 'converts single quotes to feet' do
-      TapeMeasure::Parser.new("1\' 2 1/3\"").parse.should eq 14+1.0/1.3
+      TapeMeasure::Parser.new("1\' 2 1/3\"").parse
+        .should eq(12 + 2 + (1 / 3).to_f.round(4))
     end
 
     it 'lots of junk spaces' do
-      TapeMeasure::Parser.new("     1\' 2      1/3\"     ").parse.should eq 14+1.0/1.3
+      TapeMeasure::Parser.new("     1\' 2      1/3\"     ").parse
+        .should eq(12 + 2 + (1 / 3).to_f.round(4))
     end
 
     it 'converts decimal inches' do
