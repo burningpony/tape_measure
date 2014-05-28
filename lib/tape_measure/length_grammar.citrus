@@ -65,7 +65,7 @@ grammar LengthGrammar
   ## Lexical syntax
 
   rule mixed_number
-    digit_with_unit | number
+    digits_with_unit | number
   end
 
   rule number
@@ -92,7 +92,7 @@ grammar LengthGrammar
     (float '/' float) { to_str.to_r }
   end
 
-  rule digit_with_unit
+  rule digits_with_unit
     (number unit space*){
       (RubyUnits::Unit.new( capture(:number).value.to_s.strip + ( capture(:unit).value.empty? ? "in" : capture(:unit).value)) >> "in").scalar
     }
