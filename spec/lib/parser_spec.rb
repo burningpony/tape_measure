@@ -20,7 +20,7 @@ describe TapeMeasure do
   #      1 1/10'
   # 1' 2' 3' 127cm
   # 5 (assumes inches)
-  # 3-3/4"
+  # 3-3/4" = 2.75
   describe :grammar do
     it 'can add' do
       TapeMeasure::Parser.new('(8+2)').parse.should eq 10
@@ -38,7 +38,7 @@ describe TapeMeasure do
       TapeMeasure::Parser.new('(8)*(2)*(2)').parse.should eq 32
       TapeMeasure::Parser.new('(8)*(2)').parse.should eq 16
       TapeMeasure::Parser.new('(8*2)').parse.should eq 16
-      #TapeMeasure::Parser.new('(8)(2)').parse.should eq 16
+      TapeMeasure::Parser.new('(8)(2)').parse.should eq 10
       TapeMeasure::Parser.new('(2+8*2+2)*2').parse.should eq 40
     end
 
@@ -51,29 +51,33 @@ describe TapeMeasure do
 
     it 'can multiply rationals' do
       TapeMeasure::Parser.new('(4/4 + 4)').parse.should eq 5
-      TapeMeasure::Parser.new('(3/4 +4/4)').parse.should eq "7/4".to_r
-      TapeMeasure::Parser.new('(3/4 *4/1)').parse.should eq "12/4".to_r
+      TapeMeasure::Parser.new('(3/4 +4/4)').parse.should eq '7/4'.to_r
+      TapeMeasure::Parser.new('(3/4 *4/1)').parse.should eq '12/4'.to_r
     end
 
     it 'can multiply rationals and fractions' do
-      TapeMeasure::Parser.new('(3/4 +1.0)').parse.should eq 7.0/4.0
+      TapeMeasure::Parser.new('(3/4 +1.0)').parse.should eq 7.0 / 4.0
     end
 
     describe 'recognizes mixed numbers' do
+
       it 'recognizes inches' do
         TapeMeasure::Parser.new('2 inches').parse.should eq 2
         TapeMeasure::Parser.new('2 "').parse.should eq 2
         TapeMeasure::Parser.new('2in').parse.should eq 2
       end
+
       it 'recognizes feet' do
         TapeMeasure::Parser.new('2 feet').parse.should eq 24
         TapeMeasure::Parser.new('2\'').parse.should eq 24
         TapeMeasure::Parser.new('2ft').parse.should eq 24
       end
+
       it 'converts meters' do
         TapeMeasure::Parser.new('1 meter').parse.should eq 39.3701
         TapeMeasure::Parser.new('1m').parse.should eq 39.3701
       end
+
       describe 'converts centimeters' do
         it 'with whitespace' do
           TapeMeasure::Parser.new('127 cm').parse.should eq 50
@@ -110,12 +114,12 @@ describe TapeMeasure do
 
     it 'converts single quotes to feet' do
       TapeMeasure::Parser.new("1\' 2 1/3\"").parse
-        .should eq(12 + 2 + (1 / 3).to_f.round(4))
+      .should eq(12 + 2 + (1 / 3).to_f.round(4))
     end
 
     it 'lots of junk spaces' do
       TapeMeasure::Parser.new("     1\' 2      1/3\"     ").parse
-        .should eq(12 + 2 + (1 / 3).to_f.round(4))
+      .should eq(12 + 2 + (1 / 3).to_f.round(4))
     end
 
     it 'converts decimal inches' do
@@ -138,7 +142,7 @@ describe TapeMeasure do
       TapeMeasure::Parser.new('5').parse.should eq 5
     end
 
-    #expected to hand parens in this way
+    # expected to hand parens in this way
     it 'handles paren parsing as predicted' do
       TapeMeasure::Parser.new('(5) 5').parse.should eq 10
       TapeMeasure::Parser.new('(5)(5)(5)').parse.should eq 15
@@ -157,12 +161,13 @@ describe TapeMeasure do
   describe :calculator do
     it 'with length style input' do
       expect(TapeMeasure::Parser.new('15.5\' + 12.7').parse).to eq(198.7)
-      expect(TapeMeasure::Parser.new('7 1/3 inches - 4.12mm').parse).to eq(7.1711)
+      expect(TapeMeasure::Parser.new('7 1/3 inches - 4.12mm').parse)
+        .to eq(7.1711)
       expect(TapeMeasure::Parser.new('4.5 * 3').parse).to eq(13.5)
       expect(TapeMeasure::Parser.new('5.5 / 11').parse).to eq(0.5)
     end
   end
-    it 'when called via class method helper' do
+  it 'when called via class method helper' do
     expect(TapeMeasure.parse("1\"")).to eq(1)
   end
 end
