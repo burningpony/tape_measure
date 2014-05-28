@@ -21,6 +21,19 @@ describe TapeMeasure do
   # 1' 2' 3' 127cm
   # 5 (assumes inches)
   # 3-3/4" = 2.75
+
+  it 'can handle integer' do
+    TapeMeasure.parse(6).should eq 6
+  end
+
+  it 'can handle nil' do
+    TapeMeasure.parse(nil).should eq nil
+  end
+
+  it 'can handle empty string' do
+    TapeMeasure.parse("").should eq nil
+  end
+
   describe :grammar do
     it 'can add' do
       TapeMeasure::Parser.new('(8+2)').value.should eq 10
@@ -28,7 +41,6 @@ describe TapeMeasure do
       TapeMeasure::Parser.new('(8 + 2)').value.should eq 10
       TapeMeasure::Parser.new('8 + 2').value.should eq 10
     end
-
     it 'can subtract' do
       TapeMeasure::Parser.new('4 - 2').value.should eq 2
     end

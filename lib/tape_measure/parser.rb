@@ -9,8 +9,13 @@ module TapeMeasure
 
     def initialize(string)
       @string  = string
-      return @string.blank? if @string == 0.0
-      parse
+      if @string.is_a?(String)
+        parse
+      else
+        @value = string
+      end
+      
+      
     end
 
     def parse
