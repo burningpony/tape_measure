@@ -4,7 +4,7 @@ module TapeMeasure
   class Parser
     def initialize(string)
       @string  = string
-      return 0.0 if @number == 0.0
+      return @string.blank? if @string == 0.0
 
       parse
 
@@ -13,7 +13,7 @@ module TapeMeasure
     def parse
       Citrus.load 'lib/tape_measure/length_grammar'
       begin
-        @parsed = LengthGrammar.parse(@string).value
+        @parsed = LengthGrammar.parse(@string.strip).value
       rescue => ex
         ex.message
       end

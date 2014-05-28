@@ -5,8 +5,8 @@ grammar LengthGrammar
   end
 
   rule number_set
-    (mixed_number space* term){
-      capture(:mixed_number).value + capture(:term).value
+    (primary space* term){
+      capture(:primary).value + capture(:term).value
     }
   end
 
