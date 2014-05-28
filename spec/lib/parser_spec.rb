@@ -62,7 +62,7 @@ describe TapeMeasure do
     describe 'recognizes mixed numbers' do
       it 'recognizes inches' do
         TapeMeasure::Parser.new('2 inches').parse.should eq 2
-        TapeMeasure::Parser.new('2 \"').parse.should eq 2
+        TapeMeasure::Parser.new('2 "').parse.should eq 2
         TapeMeasure::Parser.new('2in').parse.should eq 2
       end
       it 'recognizes feet' do
@@ -74,9 +74,13 @@ describe TapeMeasure do
         TapeMeasure::Parser.new('1 meter').parse.should eq 39.3701
         TapeMeasure::Parser.new('1m').parse.should eq 39.3701
       end
-      it 'converts centimeters' do
-        TapeMeasure::Parser.new('127 cm').parse.should eq 50
-        TapeMeasure::Parser.new('127cm').parse.should eq 50
+      describe 'converts centimeters' do
+        it 'with whitespace' do
+          TapeMeasure::Parser.new('127 cm').parse.should eq 50
+        end
+        it 'without whitespace' do
+          TapeMeasure::Parser.new('127cm').parse.should eq 50
+        end
       end
 
       it 'converts millimeters' do

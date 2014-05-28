@@ -65,7 +65,7 @@ grammar LengthGrammar
   ## Lexical syntax
 
   rule mixed_number
-    formatted_number | number
+    digit_with_unit | number
   end
 
   rule number
@@ -89,61 +89,17 @@ grammar LengthGrammar
   end
 
   rule rational
-    (float '/' float) { to_str.to_r }
+    (float '/' float) { BigDecimal(to_str.to_r, 8) }
   end
 
-  rule formatted_number
-    feet | inches | cm | mm | meter
-  end
-
-  rule inches
-    (number inch_identifier space*){
-      capture(:number).value
+  rule digit_with_unit
+    (number unit space*){
+      (RubyUnits::Unit.new( capture(:number).value.to_s.strip + ( capture(:unit).value.empty? ? "in" : capture(:unit).value)) >> "in").scalar
     }
   end
 
-  rule feet
-    (number foot_identifier space*) {
-      capture(:number).value * 12
-    }
-  end
-
-  rule mm
-    (number mm_identifier space*){
-      (capture(:number).value * 0.0393701).round(4)
-    }
-  end
-
-  rule cm
-    (number cm_identifier space*){
-      (capture(:number).value * 0.393701).round(4)
-    }
-  end
-
-  rule meter
-    (number meter_identifier space*){
-      (capture(:number).value * 39.3701).round(4)
-    }
-  end
-
-  rule cm_identifier
-    'cm' | 'centimeters' | 'centimetres'
-  end
-
-  rule mm_identifier
-    'mm' | 'millimeters' | 'millimetres'
-  end
-
-  rule foot_identifier 
-    '\'' | 'feet' | 'ft' | "'" | "\'"
-  end
-
-  rule inch_identifier 
-    '\"' | 'inches' | 'in' | '"' | '\"'
-  end
-
-  rule meter_identifier
-    'meter' | 'meters' | 'm'
+  rule unit
+    ([A-z]+ | '"' | '\'' | '˚' )*
   end
 
   rule digits
