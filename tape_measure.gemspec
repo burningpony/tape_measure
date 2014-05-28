@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Sam Congleton']
   spec.email         = ['sam@burningpony.com']
   spec.summary       = %q(Measurements parser and converter.)
-  spec.description   = %q(Contains a text parser for converting various measurements into floating point numbers, as well as doing several mathematical functions with those numbers)
-  spec.homepage      = 'http://burningpony.com'
+  spec.description   = %q(Contains a text parser for converting various measurements into a base unit, as well as doing several mathematical functions with those numbers)
+  spec.homepage      = 'https://github.com/burningpony/tape_measure'
   spec.license       = 'GNU v3'
 
   spec.files         = `git ls-files -z`.split("\x0")

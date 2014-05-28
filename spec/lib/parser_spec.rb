@@ -138,14 +138,26 @@ describe TapeMeasure do
       TapeMeasure::Parser.new('5').parse.should eq 5
     end
 
+    it 'handles no units' do
+      TapeMeasure::Parser.new('(5) 5').parse.should eq 10
+    end
+
+    it 'handles no units' do
+      TapeMeasure::Parser.new('(5+5) 5 (5+5)').parse.should eq 25
+    end
+
+    it 'order of operations' do
+      TapeMeasure::Parser.new('(5+5*5) 5/5').parse.should eq 31
+    end
+
   end
 
   describe :calculator do
     it 'with length style input' do
-      # expect(TapeMeasure.convert('15.5\' + 12.7')).to eq(198.7)
-      #expect(TapeMeasure::Parser.new('7 1/3 inches - 4.12mm').parse.to_f).to eq(7.17112861)
-      # expect(TapeMeasure.convert('4.5 * 3')).to eq(13.5)
-      # expect(TapeMeasure.convert('5.5 / 11')).to eq(0.5)
+      expect(TapeMeasure::Parser.new('15.5\' + 12.7').parse).to eq(198.7)
+      expect(TapeMeasure::Parser.new('7 1/3 inches - 4.12mm').parse).to eq(7.1711)
+      expect(TapeMeasure::Parser.new('4.5 * 3').parse).to eq(13.5)
+      expect(TapeMeasure::Parser.new('5.5 / 11').parse).to eq(0.5)
     end
   end
     it 'when called via class method helper' do

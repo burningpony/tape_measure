@@ -3,19 +3,19 @@
 [![Code Climate](https://codeclimate.com/github/burningpony/tape_measure.png)](https://codeclimate.com/github/burningpony/tape_measure)
 [![Build Status](https://travis-ci.org/burningpony/tape_measure.svg?branch=master)](https://travis-ci.org/burningpony/tape_measure)
 
-Contains a text parser for converting various measurements into floating point numbers, as well as doing multiplication with those numbers:
+Contains a text parser for converting various measurements into their inch :/ equivilent, as well as doing multiplication with those numbers:
 
-LengthGrammer.parse('6ft') = 72
-LengthGrammer.parse('6in') = 6
-LengthGrammer.parse('6ft 6in') = 78
-LengthGrammer.parse('6 * 6') = 36
-LengthGrammer.parse('(6ft 6in) + 6in') = 84
+TapeMeasure::Parser.new('6ft').parse = 72
+TapeMeasure::Parser.new('6in').parse = 6
+TapeMeasure::Parser.new('6ft 6in').parse = 78
+TapeMeasure::Parser.new('6 * 6').parse = 36
+TapeMeasure::Parser.new('(6ft 6in) + 6in').parse = 84
 
-Also contains a to_mixed number function that converts inches to all of it's corresponding measurements:
+Also contains a formatter that converts a measurement to all of it's corresponding measurements:
 
-.to_mixed_number('12') = ['1ft', '12in', '#m', etc]
+.to_mixed_number('12"') = ['1ft', '12in', '#m', etc]
 
-## Installation: NOT CURRENTLY PUBLISHED
+## Installation: 
 
 
 Add this line to your application's Gemfile:
