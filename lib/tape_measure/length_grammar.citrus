@@ -37,8 +37,8 @@ grammar LengthGrammar
   end
 
   rule number_set
-    (primary space* term){
-      capture(:primary).value + capture(:term).value
+    (primary space* number_group){
+      capture(:primary).value + capture(:number_group).value
     }
   end
 

@@ -1,6 +1,6 @@
 require 'citrus'
 require 'ruby_units/namespaced'
-Citrus.load 'lib/tape_measure/length_grammar'
+Citrus.load File.expand_path("../length_grammar", __FILE__)
 
 module TapeMeasure
   # Parse Strings into units and math them
@@ -9,8 +9,13 @@ module TapeMeasure
 
     def initialize(string)
       @string  = string
-      return @string.blank? if @string == 0.0
-      parse
+      if @string.is_a?(String)
+        parse
+      else
+        @value = string
+      end
+      
+      
     end
 
     def parse
