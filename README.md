@@ -5,15 +5,16 @@
 
 Contains a text parser for converting various measurements into their inch :/ equivilent, as well as doing multiplication with those numbers:
 
-TapeMeasure::Parser.new('6ft').parse = 72
-TapeMeasure::Parser.new('6in').parse = 6
-TapeMeasure::Parser.new('6ft 6in').parse = 78
-TapeMeasure::Parser.new('6 * 6').parse = 36
-TapeMeasure::Parser.new('(6ft 6in) + 6in').parse = 84
+    TapeMeasure.parse('6ft').parse = 72
+    TapeMeasure.parse('6in').parse = 6
+    TapeMeasure.parse('6ft 6in').parse = 78
+    TapeMeasure.parse('6 * 6').parse = 36
+    TapeMeasure.parse('(6ft 6in) + 6in').parse = 84
 
+They underlying library supports all units and could easily be expanded to handle natural lanuage parsing of other units in strings. 
 Also contains a formatter that converts a measurement to all of it's corresponding measurements:
 
-.to_mixed_number('12"') = ['1ft', '12in', '#m', etc]
+    TapeMeasure.format(13.5) = "1' 1 1/2""
 
 ## Installation: 
 
