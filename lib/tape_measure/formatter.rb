@@ -27,10 +27,9 @@ module TapeMeasure
     end
 
     def format_inches
-      if @inches > 0
-        @unit_array << ' ' if @feet > 0
-        @unit_array << "#{@inches}"
-      end
+      return unless @inches > 0
+      @unit_array << ' ' if @feet > 0
+      @unit_array << "#{@inches}"
     end
 
     def format_fraction
