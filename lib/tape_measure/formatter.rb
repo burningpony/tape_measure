@@ -15,7 +15,11 @@ module TapeMeasure
       format_inches
       format_fraction
 
-      @mixed_number = @unit_array.compact.join
+      if @unit_array.size > 0
+        @mixed_number = @unit_array.compact.join
+      else
+        @mixed_number = 0
+      end
     end
 
     def format_feet

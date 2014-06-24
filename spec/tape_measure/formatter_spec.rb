@@ -17,7 +17,7 @@ describe TapeMeasure::Formatter do
 
   it 'when no length' do
     expect(TapeMeasure::Formatter.new(0.0).mixed_number)
-    .to eq('')
+    .to eq(0)
   end
 
   it 'when called via class method helper' do
