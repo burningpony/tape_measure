@@ -191,4 +191,18 @@ describe TapeMeasure do
   it 'when called via class method helper' do
     expect(TapeMeasure.parse("1\"")).to eq(1)
   end
+
+  describe :match do
+    it 'matches' do
+      expect(TapeMeasure.match?('3\' 1/4" * 3 1/2" * 3/4" ')).to eq(true)
+    end
+
+    it 'does not match' do
+      expect(TapeMeasure.match?('3\' 1/4" * 3 1/2" *" ')).to eq(false)
+    end
+
+    it 'does not match' do
+      expect(TapeMeasure.match?('3\' 1/4" * 3 1/2" x hihi how are you')).to eq(false)
+    end
+  end
 end
