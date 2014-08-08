@@ -4,7 +4,7 @@ module TapeMeasure
     attr_reader :mixed_number
 
     def initialize(number = 0.0)
-      @number     = number
+      @number     = number.to_f
       @unit_array = []
       @feet       = @number.div(12)
       @raw_inches = @number.remainder(12)
@@ -20,6 +20,7 @@ module TapeMeasure
       else
         @mixed_number = 0
       end
+
     end
 
     def format_feet
