@@ -172,20 +172,24 @@ describe TapeMeasure do
 
   describe :calculator do
     it 'with length style input' do
-      expect(TapeMeasure::Parser.new('15.5\' + 12.7').value).to eq(198.7)
+      expect(TapeMeasure::Parser.new('15.5\' + 12.7"').value).to eq(198.7)
       expect(TapeMeasure::Parser.new('7 1/3 inches - 4.12mm').value)
       .to eq(7.1711)
       expect(TapeMeasure::Parser.new('4.5 * 3').value).to eq(13.5)
       expect(TapeMeasure::Parser.new('5.5 / 11').value).to eq(0.5)
-      expect(TapeMeasure::Parser.new('1 ft * 1 inch').value).to eq(12)
-      expect(TapeMeasure::Parser.new('(3 ft 1/4") * 3 1/2 inch').value).to eq(126.875)
-      expect(TapeMeasure::Parser.new('(3 ft 1/4") * 3 1/2 inch * 4/4" ').value).to eq(126.875)
-      expect(TapeMeasure::Parser.new('(3 ft 1/4") * 3 1/2 inch * 3/4" ').value).to eq(95.15625)
+      expect(TapeMeasure::Parser.new('1 ft * 1').value).to eq(12)
+      expect(TapeMeasure::Parser.new('1 ft * 1').unit).to eq("ft")
+      expect(TapeMeasure::Parser.new('1 ft * 1').scalar).to eq(1)
+      expect(TapeMeasure::Parser.new('(3 ft 1/4") * 3 1/2').value).to eq(126.875)
+      expect(TapeMeasure::Parser.new('(3 ft 1/4") * 3 1/2 * 4/4" ').value).to be_within(1).of(10.572916666666666)
+      expect(TapeMeasure::Parser.new('(3 ft 1/4") * 3 1/2 * 4/4" ').unit).to eq("ft*in")
+      expect(TapeMeasure::Parser.new('(3 ft 1/4") * 3 1/2 * 3/4 ').value).to eq(95.1563)
     end
     it 'when no brackets to define order of operations' do 
-      expect(TapeMeasure::Parser.new('3\' 1/4" * 3 1/2"').value).to eq(126.875)
-      expect(TapeMeasure::Parser.new('3\' 1/4" * 3 1/2" * 4/4" ').value).to eq(126.875)
-      expect(TapeMeasure::Parser.new('3\' 1/4" * 3 1/2" * 3/4" ').value).to eq(95.15625)
+      expect(TapeMeasure::Parser.new('3\' 1/4" * 3 1/2').value).to eq(126.875)
+      expect(TapeMeasure::Parser.new('3\' 1/4" * 3 1/2" * 4/4" ').value).to be_within(1).of(10.572916666666666)
+      expect(TapeMeasure::Parser.new('3\' 1/4" * 3 1/2" * 4/4" ').unit).to eq("ft*in^2")
+      expect(TapeMeasure::Parser.new('3\' 1/4" * 3 1/2 * 3/4 ').value).to eq(95.1563)
     end
   end
   it 'when called via class method helper' do

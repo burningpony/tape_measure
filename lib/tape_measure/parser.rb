@@ -5,7 +5,7 @@ Citrus.load File.expand_path("../length_grammar", __FILE__)
 module TapeMeasure
   # Parse Strings into units and math them
   class Parser
-    attr_reader :value, :match
+    attr_reader :value, :match, :unit, :scalar
 
     def initialize(string)
       @string  = string
@@ -18,7 +18,11 @@ module TapeMeasure
 
     def parse
       begin
-        @value = LengthGrammar.parse(@string.strip).value
+        mixed_value = LengthGrammar.parse(@string.strip).value
+        @unit = mixed_value.units
+        @scalar = mixed_value.scalar
+        @value = mixed_value.compatible?("in") ? (mixed_value >> "in").scalar.round(4) : @scalar.to_f
+
         @match = true
       rescue => ex
         ex.message
@@ -35,6 +39,14 @@ module TapeMeasure
 
     def match?(string)
       Parser.new(string).match
+    end
+
+    def scalar(string)
+      Parser.new(string).scalar
+    end
+
+    def unit(string)
+      Parser.new(string).unit
     end
   end
 end
