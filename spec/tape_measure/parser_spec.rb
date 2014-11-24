@@ -71,6 +71,13 @@ describe TapeMeasure do
       expect(TapeMeasure::Parser.new('(3/4 +1.0)').value).to eq 7.0 / 4.0
     end
 
+    it 'can handle complex rationals' do
+      expect(TapeMeasure::Parser.new('(77/88 mm)').value).to eq 43/1250
+      expect(TapeMeasure::Parser.new('(77/88 mm)').match).to eq true
+      expect(TapeMeasure::Parser.new('(77/88 mm)').scalar).to eq 77/88
+      expect(TapeMeasure::Parser.new('(77/88 mm)').unit).to eq "mm"
+    end
+
     describe 'recognizes mixed numbers' do
 
       it 'recognizes inches' do
