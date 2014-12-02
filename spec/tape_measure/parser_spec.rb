@@ -192,7 +192,7 @@ describe TapeMeasure do
       expect(TapeMeasure::Parser.new('(3 ft 1/4") * 3 1/2 * 4/4" ').unit).to eq("ft*in")
       expect(TapeMeasure::Parser.new('(3 ft 1/4") * 3 1/2 * 3/4 ').value).to eq((3045/32))
     end
-    it 'when no brackets to define order of operations' do 
+    it 'when no brackets to define order of operations' do
       expect(TapeMeasure::Parser.new('3\' 1/4" * 3 1/2').value).to eq(126.875)
       expect(TapeMeasure::Parser.new('3\' 1/4" * 3 1/2" * 4/4" ').value).to be_within(1).of(10.572916666666666)
       expect(TapeMeasure::Parser.new('3\' 1/4" * 3 1/2" * 4/4" ').unit).to eq("ft*in^2")

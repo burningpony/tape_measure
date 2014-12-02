@@ -11,7 +11,7 @@ grammar LengthGrammar
   end
 
   rule factor
-    multiplicative | prefix 
+    multiplicative | prefix
   end
 
   rule multiplicative
@@ -30,7 +30,7 @@ grammar LengthGrammar
       s += '@' unless s == '~' # Unary + and - require an @.
       capture(:prefix).value.send(s)
     }
-  end 
+  end
 
   rule number_group
     number_set | exponent
@@ -79,7 +79,7 @@ grammar LengthGrammar
   end
 
   rule irrational
-    rational | float 
+    rational | float
   end
 
   rule float
