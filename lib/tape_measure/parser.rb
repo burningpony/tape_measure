@@ -21,7 +21,7 @@ module TapeMeasure
         mixed_value = LengthGrammar.parse(@string.strip).value
         @unit = mixed_value.units
         @scalar = mixed_value.scalar
-        @value = mixed_value.compatible?("in") ? (mixed_value >> "in").scalar.round(4) : @scalar.to_f
+        @value = mixed_value.compatible?("in") ? (mixed_value >> "in").scalar : @scalar.to_f
 
         @match = true
       rescue => ex

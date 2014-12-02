@@ -72,7 +72,7 @@ describe TapeMeasure do
     end
 
     it 'can handle complex rationals' do
-      expect(TapeMeasure::Parser.new('(77/88 mm)').value).to eq 43/1250
+      expect(TapeMeasure::Parser.new('(77/88 mm)').value).to eq (35/1016)
       expect(TapeMeasure::Parser.new('(77/88 mm)').match).to eq true
       expect(TapeMeasure::Parser.new('(77/88 mm)').scalar).to eq 77/88
       expect(TapeMeasure::Parser.new('(77/88 mm)').unit).to eq "mm"
@@ -93,8 +93,8 @@ describe TapeMeasure do
       end
 
       it 'converts meters' do
-        expect(TapeMeasure::Parser.new('1 meter').value).to eq 39.3701
-        expect(TapeMeasure::Parser.new('1m').value).to eq 39.3701
+        expect(TapeMeasure::Parser.new('1 meter').value).to eq (5000/127)
+        expect(TapeMeasure::Parser.new('1m').value).to eq (5000/127)
       end
 
       describe 'converts centimeters' do
@@ -133,12 +133,12 @@ describe TapeMeasure do
 
     it 'converts single quotes to feet' do
       expect(TapeMeasure::Parser.new("1\' 2 1/3\"").value)
-      .to eq(12 + 2 + (1 / 3).to_f.round(4))
+      .to eq(12 + 2 + (1 / 3).to_f)
     end
 
     it 'lots of junk spaces' do
       expect(TapeMeasure::Parser.new("     1\' 2      1/3\"     ").value)
-      .to eq(12 + 2 + (1 / 3).to_f.round(4))
+      .to eq(12 + 2 + (1 / 3).to_f)
     end
 
     it 'converts decimal inches' do
@@ -190,13 +190,13 @@ describe TapeMeasure do
       expect(TapeMeasure::Parser.new('(3 ft 1/4") * 3 1/2').value).to eq(126.875)
       expect(TapeMeasure::Parser.new('(3 ft 1/4") * 3 1/2 * 4/4" ').value).to be_within(1).of(10.572916666666666)
       expect(TapeMeasure::Parser.new('(3 ft 1/4") * 3 1/2 * 4/4" ').unit).to eq("ft*in")
-      expect(TapeMeasure::Parser.new('(3 ft 1/4") * 3 1/2 * 3/4 ').value).to eq(95.1563)
+      expect(TapeMeasure::Parser.new('(3 ft 1/4") * 3 1/2 * 3/4 ').value).to eq((3045/32))
     end
     it 'when no brackets to define order of operations' do 
       expect(TapeMeasure::Parser.new('3\' 1/4" * 3 1/2').value).to eq(126.875)
       expect(TapeMeasure::Parser.new('3\' 1/4" * 3 1/2" * 4/4" ').value).to be_within(1).of(10.572916666666666)
       expect(TapeMeasure::Parser.new('3\' 1/4" * 3 1/2" * 4/4" ').unit).to eq("ft*in^2")
-      expect(TapeMeasure::Parser.new('3\' 1/4" * 3 1/2 * 3/4 ').value).to eq(95.1563)
+      expect(TapeMeasure::Parser.new('3\' 1/4" * 3 1/2 * 3/4 ').value).to eq((3045/32))
     end
   end
   it 'when called via class method helper' do
