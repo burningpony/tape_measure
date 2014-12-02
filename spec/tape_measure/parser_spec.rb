@@ -181,7 +181,7 @@ describe TapeMeasure do
     it 'with length style input' do
       expect(TapeMeasure::Parser.new('15.5\' + 12.7"').value).to eq(198.7)
       expect(TapeMeasure::Parser.new('7 1/3 inches - 4.12mm').value)
-      .to eq(7.1711)
+      .to eq(13661/1905)
       expect(TapeMeasure::Parser.new('4.5 * 3').value).to eq(13.5)
       expect(TapeMeasure::Parser.new('5.5 / 11').value).to eq(0.5)
       expect(TapeMeasure::Parser.new('1 ft * 1').value).to eq(12)
