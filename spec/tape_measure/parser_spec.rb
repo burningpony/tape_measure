@@ -119,16 +119,20 @@ describe TapeMeasure do
       expect(TapeMeasure::Parser.new('4feet 2inches').value).to eq 50
     end
 
-    it 'number + string unit twice to inches' do
+    it 'number + symbol unit twice to inches' do
       expect(TapeMeasure::Parser.new("4'2\"").value).to eq 50
     end
 
-    it 'number + string unit twice to inches' do
+    it 'number + string unit twice to inches with no whitespace' do
       expect(TapeMeasure::Parser.new('3ft10in').value).to eq 46
     end
 
-    it 'number + string unit twice to inches' do
-      expect(TapeMeasure::Parser.new('3ft13in').value).to eq 49
+    it 'number + string unit once to inches' do
+      expect(TapeMeasure::Parser.new('3ft').value).to eq 36
+    end
+
+    it 'number + string unit twice to inches seperated by whitespace' do
+      expect(TapeMeasure::Parser.new('3ft 13in').value).to eq 49
     end
 
     it 'converts single quotes to feet' do
