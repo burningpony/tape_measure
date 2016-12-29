@@ -24,7 +24,7 @@ module TapeMeasure
         @value = mixed_value.compatible?("in") ? (mixed_value >> "in").scalar : @scalar.to_f
 
         @match = true
-      rescue => ex
+      rescue Citrus::ParseError => ex
         ex.message
         @match = false
       end
