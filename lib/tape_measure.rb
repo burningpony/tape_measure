@@ -1,7 +1,6 @@
-require 'tape_measure/formatter'
-require 'tape_measure/parser'
-require 'tape_measure/version'
-require 'bigdecimal'
+require_relative 'tape_measure/formatter'
+require_relative 'tape_measure/parser'
+require_relative 'tape_measure/version'
 
 # Silence is golden
 module TapeMeasure

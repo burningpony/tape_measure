@@ -63,8 +63,8 @@ describe TapeMeasure do
 
     it 'can multiply rationals' do
       expect(TapeMeasure::Parser.new('(4/4 + 4)').value).to eq 5
-      expect(TapeMeasure::Parser.new('(3/4 +4/4)').value).to eq '7/4'.to_r
-      expect(TapeMeasure::Parser.new('(3/4 *4/1)').value).to eq '12/4'.to_r
+      expect(TapeMeasure::Parser.new('(3/4 +4/4)').value).to eq Rational(7, 4)
+      expect(TapeMeasure::Parser.new('(3/4 *4/1)').value).to eq Rational(12, 4)
     end
 
     it 'can multiply rationals and fractions' do

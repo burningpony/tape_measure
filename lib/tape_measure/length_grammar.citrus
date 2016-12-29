@@ -87,7 +87,7 @@ grammar LengthGrammar
   end
 
   rule decimal
-    (integer '.' integer) { Rational(to_str) }
+    (integer '.' integer) { Rational(capture(:decimal).to_str) }
   end
 
   rule integer
@@ -105,7 +105,7 @@ grammar LengthGrammar
   end
 
   rule fraction
-    (float '/' float) { Rational(to_str) }
+    (float '/' float) { Rational(*captures(:float).map(&:to_str).map(&:to_f)) }
   end
 
   rule unit
