@@ -70,7 +70,7 @@ grammar LengthGrammar
 
   rule digits_with_unit
     (number unit space*){
-      (RubyUnits::Unit.new( capture(:number).value.to_s.strip +  capture(:unit).value.to_s))
+      RubyUnits::Unit.new capture(:number).value, capture(:unit).to_str
     }
   end
 
@@ -118,5 +118,5 @@ grammar LengthGrammar
 
   rule lparen '(' space* end
   rule rparen ')' space* end
-  rule space  [ \t\n\r]  end
+  rule space  [\s]  end
 end
