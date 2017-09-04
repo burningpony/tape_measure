@@ -23,4 +23,8 @@ describe TapeMeasure::Formatter do
   it 'when called via class method helper' do
     expect(TapeMeasure.format(1)).to eq("1\"")
   end
+
+  it 'when number is more clearly stated as a number' do
+    expect(TapeMeasure::Formatter.new(7.5).mixed_number).to eq('7 1/2"')
+  end
 end
