@@ -95,7 +95,13 @@ grammar LengthGrammar
   end
 
   rule rational
-    leading_whole | fraction
+    leading_with_minus_whole | leading_whole | fraction
+  end
+
+  rule leading_with_minus_whole
+    (integer operator:('-') fraction){
+      capture(:integer).value + capture(:fraction).value
+    }
   end
 
   rule leading_whole

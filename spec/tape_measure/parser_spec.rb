@@ -115,6 +115,15 @@ describe TapeMeasure do
 
   describe :unit_conversion do
 
+    it 'number + unit - number + unit is subtraction' do
+      expect(TapeMeasure::Parser.new('4feet-2inches').value).to eq 46
+    end
+
+    # Handles US metric lumber notation of 2-1/2" to represent 2.5 inches.
+    it 'number - number + unit is addition' do
+      expect(TapeMeasure::Parser.new('2-1/2"').value).to eq 2.5
+    end
+
     it 'number + space + string unit twice to inches' do
       expect(TapeMeasure::Parser.new('4feet 2inches').value).to eq 50
     end
